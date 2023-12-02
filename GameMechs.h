@@ -33,8 +33,13 @@ class GameMechs
         GameMechs(int boardX, int boardY);
         ~GameMechs();
         
+        void deleteGameMechs(GameMechs* game);
+
         bool getExitFlagStatus();
         void setExitTrue();
+
+        bool getLoseFlagStatus();
+        void setLoseFlag();
 
         char getInput();
         void setInput(char this_input);
