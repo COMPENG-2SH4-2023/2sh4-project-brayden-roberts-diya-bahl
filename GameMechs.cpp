@@ -82,6 +82,8 @@ GameMechs::~GameMechs()
         delete[] gameboard[i];
     }
     delete[] gameboard;
+
+    delete this; 
 }
 
 
