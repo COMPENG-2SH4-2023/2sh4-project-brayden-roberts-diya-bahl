@@ -1,49 +1,98 @@
 #include "GameMechs.h"
 
-GameMechs::GameMechs()
+GameMechs::GameMechs() //constructor 1 (default bc nothing in brackets)
 {
-    input = 0;
-    exitFlag = false;
-        
-    loseFlag = false;
-    score = 0;
-        
+    //constructor needed: call an obj of this class, it does the f'n right away
+
     boardSizeX = 30;
     boardSizeY = 15;
-}
 
-GameMechs::GameMechs(int boardX, int boardY)
-{
+    gameboard = new char*[boardSizeY];
+    for(int i = 0; i<boardSizeY; i++)
+    {
+        gameboard[i] = new char[boardSizeX];
+    }
+    
+    for(int i = 0; i<boardSizeY; i++)
+    {
+        for(int j = 0; j<boardSizeX; j++)
+        {
+            gameboard[i][j] = ' ';
+        }
+    }
+
     input = 0;
-    exitFlag = false;
-        
-    loseFlag = false;
+
     score = 0;
-        
-    boardSizeX = boardX;
-    boardSizeY = boardY;
+
+    exitFlag = false;
+    loseFlag = false;
+
 }
 
-// do you need a destructor?
-
-void GameMechs::deleteGameMechs(GameMechs* game)
+GameMechs::GameMechs(int boardX, int boardY) //constructor 1 (if you put something in brackets it does this one)
 {
-    delete game;
+
+    if (boardSizeX < 10 )
+    {
+        boardSizeX = 30;
+    }
+    else 
+    {
+        boardSizeX = boardX;
+    }
+
+    if (boardSizeY < 5 )
+    {
+        boardSizeY = 15;
+    }
+    else 
+    {
+        boardSizeY = boardY;
+    }
+
+
+    gameboard = new char*[boardSizeY];
+    for(int i = 0; i<boardSizeY; i++)
+    {
+        gameboard[i] = new char[boardSizeX];
+    }
+    
+    for(int i = 0; i<boardSizeY; i++)
+    {
+        for(int j = 0; j<boardSizeX; j++)
+        {
+            gameboard[i][j] = ' ';
+        }
+    }
+
+    input = 0;
+
+    score = 0;
+
+    exitFlag = false;
+    loseFlag = false;
+
+
 }
+
+// do you need a destructor? 
+GameMechs::~GameMechs()
+{
+    for(int i = 0; i < boardSizeY; i++)
+    {
+        delete[] gameboard[i];
+    }
+    delete[] gameboard;
+
+    delete this; 
+}
+
+
 
 bool GameMechs::getExitFlagStatus()
 {
     return exitFlag;
-}
-
-bool GameMechs::getLoseFlagStatus()
-{
-    return loseFlag;
-}
-
-void GameMechs::setLoseFlag()
-{
-    loseFlag = true;
 }
 
 char GameMechs::getInput()
@@ -61,7 +110,6 @@ int GameMechs::getBoardSizeY()
     return boardSizeY;
 }
 
-
 void GameMechs::setExitTrue()
 {
     exitFlag = true;
@@ -76,5 +124,37 @@ void GameMechs::clearInput()
 {
     input = 0;
 }
+
+void GameMechs::setLoseTrue()
+{
+    loseFlag = true;
+}
+
+bool GameMechs::getLoseFlagStatus()
+{
+    return loseFlag;
+}
+
+int GameMechs::getScore()
+{
+    return score;
+}
+
+void GameMechs::incrementScore(int val)
+{
+    score += val;
+}
+
+// void GameMechs::generatefood(objPos blockoff)
+// {
+//     input = blockoff;
+// }
+
+void GameMechs::getfoodpos(objPos &returnPos, int index)
+{
+    input = index;
+}
+
+
 
 

@@ -3,13 +3,13 @@
 #include "objPos.h"
 #include "GameMechs.h"
 
-
 using namespace std;
 
 #define DELAY_CONST 100000
 
 GameMechs* gameData;
 char dir = 0;
+
 
 void Initialize(void);
 void GetInput(void);
@@ -117,7 +117,7 @@ void RunLogic(void)
                 // }
                 break;
             case 'l':
-                gameData->setLoseFlag();
+                gameData->setLoseTrue();
             // Add more key processing here
             // Add more key processing here    
 
@@ -174,5 +174,5 @@ void CleanUp(void)
     MacUILib_clearScreen();    
   
     MacUILib_uninit();
-    gameData->deleteGameMechs(gameData);
+    gameData->~GameMechs();
 }

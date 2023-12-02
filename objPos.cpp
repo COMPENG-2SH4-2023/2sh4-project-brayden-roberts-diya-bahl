@@ -7,7 +7,7 @@ objPos::objPos()
     symbol = 0; //NULL
 }
 
-objPos::objPos(objPos &o)
+objPos::objPos(objPos &o) //creating a new obj
 {
     x = o.x;
     y = o.y;
@@ -22,7 +22,7 @@ objPos::objPos(int xPos, int yPos, char sym)
     symbol = sym;
 }
 
-void objPos::setObjPos(objPos o)
+void objPos::setObjPos(objPos o) //modifying the values of the obj
 {
     x = o.x;
     y = o.y;
@@ -36,7 +36,7 @@ void objPos::setObjPos(int xPos, int yPos, char sym)
     symbol = sym;
 }
 
-void objPos::getObjPos(objPos &returnPos)
+void objPos::getObjPos(objPos &returnPos) //taking in a given object and storing its position in returnPos (address)
 {
     returnPos.setObjPos(x, y, symbol);
 }
