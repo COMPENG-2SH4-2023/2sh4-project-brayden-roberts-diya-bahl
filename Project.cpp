@@ -2,12 +2,12 @@
 #include "MacUILib.h"
 #include "objPos.h"
 
-
 using namespace std;
 
 #define DELAY_CONST 100000
 
 bool exitFlag;
+
 
 void Initialize(void);
 void GetInput(void);
