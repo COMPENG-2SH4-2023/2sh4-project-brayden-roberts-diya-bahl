@@ -18,13 +18,14 @@ class GameMechs
 
     // You will include more data members and member functions to complete your design.
 
-    private:
+    public:
         char input;
         bool exitFlag;
         
         bool loseFlag;
         int score;
-        
+
+    private:
         int boardSizeX;
         int boardSizeY;
 

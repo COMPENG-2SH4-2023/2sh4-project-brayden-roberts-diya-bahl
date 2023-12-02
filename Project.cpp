@@ -152,13 +152,13 @@ void DrawScreen(void)
         MacUILib_printf("\n"); 
     }
     MacUILib_printf("\n%c", dir);
-    if(gameData->getLoseFlagStatus == false)
+    if(gameData->getLoseFlagStatus() == false)
     {
         MacUILib_printf("You did not lose");
     }
     else
     {
-        MacUILib_printf("You lose"):
+        MacUILib_printf("You lose");
     }
 
 }
