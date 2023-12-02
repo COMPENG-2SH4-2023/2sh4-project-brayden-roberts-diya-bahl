@@ -17,7 +17,14 @@ GameMechs::GameMechs() //constructor 1 (default bc nothing in brackets)
     {
         for(int j = 0; j<boardSizeX; j++)
         {
-            gameboard[i][j] = ' ';
+            if(i==0 || i==boardSizeY-1 || j==0 || j==boardSizeX-1)       //if on edge
+            {
+                gameboard[i][j] = '#';  
+            }
+            else
+            {
+                gameboard[i][j] = ' ';
+            }
         }
     }
 
@@ -62,7 +69,15 @@ GameMechs::GameMechs(int boardX, int boardY) //constructor 1 (if you put somethi
     {
         for(int j = 0; j<boardSizeX; j++)
         {
-            gameboard[i][j] = ' ';
+            if(i==0 || i==boardSizeY-1 || j==0 || j==boardSizeX-1)       //if on edge
+            {
+                gameboard[i][j] = '#';  
+            }
+            else
+            {
+                gameboard[i][j] = ' ';
+            }
+            
         }
     }
 

@@ -136,18 +136,11 @@ void DrawScreen(void)
     MacUILib_clearScreen();
     int x;
     int y;
-    for(y=0;y<10;y++)       //Start from a y co-ordinate
+    for(y=0;y<gameData->getBoardSizeY();y++)       //Start from a y co-ordinate
     {
-        for(x=0;x<20;x++)       //Print character at each x-co-ordinate
+        for(x=0;x<gameData->getBoardSizeX();x++)       //Print character at each x-co-ordinate
         {
-            if(y==0 || y==9 || x==0 || x==19)       //if on edge
-            {
-                MacUILib_printf("#");  
-            }
-            else
-            {
-                MacUILib_printf(" ");
-            }
+            MacUILib_printf("%c", gameData->gameboard[y][x]);
         }
         MacUILib_printf("\n"); 
     }
