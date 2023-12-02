@@ -39,7 +39,8 @@ void Player::getPlayerPos(objPos &returnPos)
 void Player::updatePlayerDir()
 {
     // PPA3 input processing logic
-    char move = (*mainGameMechsRef).getInput(); 
+    char move = (*mainGameMechsRef).getInput();
+    mainGameMechsRef->clearInput();
 
     switch (move)
     {
@@ -82,8 +83,6 @@ void Player::updatePlayerDir()
             }
             break;
     }       
-
-    (*mainGameMechsRef).clearInput();
 }
 
 void Player::movePlayer()

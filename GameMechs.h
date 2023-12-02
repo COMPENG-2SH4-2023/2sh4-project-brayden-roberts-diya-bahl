@@ -25,9 +25,10 @@ class GameMechs
         bool loseFlag;
         int score;
 
-    private:
         int boardSizeX;
         int boardSizeY;
+
+        objPos foodPos;
 
     public:
         GameMechs();
@@ -51,9 +52,9 @@ class GameMechs
         void incrementScore(int val);
         void subtractScore();
 
-        void generatefood(objPos blockoff); //blockoff = a position, so that when it generates food, it doesn't put it in that blockoff position
+        void generateFood(objPos blockoff); //blockoff = a position, so that when it generates food, it doesn't put it in that blockoff position
         //blockoff = placeholder for the position where the player currently is
-        void getfoodpos(objPos &returnPos, int index); //finding where an element from the index is on the gameboard & storing the address of that in returnPos
+        void getFoodPos(objPos &returnPos, int index); //finding where an element from the index is on the gameboard & storing the address of that in returnPos
 
         char **gameboard;
 

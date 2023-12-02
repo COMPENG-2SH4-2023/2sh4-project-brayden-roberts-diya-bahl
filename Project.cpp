@@ -3,6 +3,7 @@
 #include "objPos.h"
 #include "GameMechs.h"
 #include "Player.h"
+#include <time.h>
 
 using namespace std;
 
@@ -42,11 +43,14 @@ int main(void)
 
 void Initialize(void)
 {
+    srand(time(NULL));
     MacUILib_init();
     MacUILib_clearScreen();
     gameData = new GameMechs();
-
     snake = new Player(gameData);
+    objPos temp;
+    snake->getPlayerPos(temp);
+    gameData->generateFood(temp);
 
 }
 
@@ -71,8 +75,11 @@ void DrawScreen(void)
     int x;
     int y;
     objPos temp;
+    objPos temp2;
     snake->getPlayerPos(temp);
+    gameData->getFoodPos(temp2, 1);
     gameData->gameboard[temp.y][temp.x] = temp.symbol;
+    gameData->gameboard[temp2.y][temp2.x] = temp2.symbol;
 
     for(y=0;y<gameData->getBoardSizeY();y++)       //Start from a y co-ordinate
     {
@@ -93,6 +100,8 @@ void DrawScreen(void)
     }
 
     gameData->gameboard[temp.y][temp.x] = ' ';
+    gameData->gameboard[temp2.y][temp2.x] = ' ';
+    
 }
 
 void LoopDelay(void)
