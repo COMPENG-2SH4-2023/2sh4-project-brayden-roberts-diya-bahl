@@ -2,12 +2,14 @@
 #include "MacUILib.h"
 #include "objPos.h"
 #include "GameMechs.h"
+#include "Player.h"
 
 using namespace std;
 
 #define DELAY_CONST 100000
 
 GameMechs* gameData;
+Player* snake;
 char dir = 0;
 
 
@@ -44,6 +46,8 @@ void Initialize(void)
     MacUILib_clearScreen();
     gameData = new GameMechs();
 
+    snake = new Player(gameData);
+
 }
 
 void GetInput(void)
@@ -56,86 +60,20 @@ void GetInput(void)
 
 void RunLogic(void)
 {
-    char input = gameData->getInput();
-    gameData->setInput(0);
-
-    if(input != 0)  // if not null character
-    {
-        switch(input)
-        {                      
-            case 27:  // exit
-                gameData->setExitTrue();
-                break;
-
-            // Add more key processing here
-            case 'w':
-                dir = 'w';
-                // if(direction != DOWN)
-                // {
-                //     direction = UP;
-                // }
-                break;
-            case 'a':
-                cout << "Left";
-                dir = 'a';
-                // if(direction != RIGHT)
-                // {
-                //     direction = LEFT;
-                // }
-                break;
-            case 's':
-                dir = 's';
-                cout << "Down";
-
-                // if(direction != UP)
-                // {
-                //     direction = DOWN;
-                // }
-                break;
-            case 'd':
-                cout << "Right";
-                dir = 'd';
-                // if(direction != LEFT)
-                // {
-                //     direction = RIGHT;
-                // }
-                break;
-            case '+':
-                cout << "Faster";
-                dir = '+';
-                // if(speed<5)
-                // {
-                //     speed++;
-                // }
-                break;
-            case '-':
-                cout << "Slower";
-                dir = '-';
-                // if(speed>1)
-                // {
-                //     speed--;
-                // }
-                break;
-            case 'l':
-                gameData->setLoseTrue();
-            // Add more key processing here
-            // Add more key processing here    
-
-
-            default:
-                break;
-        }
-        input = 0;
-    }
+    snake->updatePlayerDir();
+    snake->movePlayer();
 
 }
 
 void DrawScreen(void)
 {
     MacUILib_clearScreen();
-    MacUILib_clearScreen();
     int x;
     int y;
+    objPos temp;
+    snake->getPlayerPos(temp);
+    gameData->gameboard[temp.y][temp.x] = temp.symbol;
+
     for(y=0;y<gameData->getBoardSizeY();y++)       //Start from a y co-ordinate
     {
         for(x=0;x<gameData->getBoardSizeX();x++)       //Print character at each x-co-ordinate
@@ -154,6 +92,7 @@ void DrawScreen(void)
         MacUILib_printf("You lose");
     }
 
+    gameData->gameboard[temp.y][temp.x] = ' ';
 }
 
 void LoopDelay(void)
