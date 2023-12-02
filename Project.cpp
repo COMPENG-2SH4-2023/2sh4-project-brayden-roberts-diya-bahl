@@ -117,7 +117,7 @@ void RunLogic(void)
                 // }
                 break;
             case 'l':
-                gameData->setLoseFlag();
+                gameData->setLoseTrue();
             // Add more key processing here
             // Add more key processing here    
 
@@ -152,13 +152,13 @@ void DrawScreen(void)
         MacUILib_printf("\n"); 
     }
     MacUILib_printf("\n%c", dir);
-    if(gameData->getLoseFlagStatus == false)
+    if(gameData->getLoseFlagStatus() == false)
     {
         MacUILib_printf("You did not lose");
     }
     else
     {
-        MacUILib_printf("You lose"):
+        MacUILib_printf("You lose");
     }
 
 }
@@ -174,5 +174,5 @@ void CleanUp(void)
     MacUILib_clearScreen();    
   
     MacUILib_uninit();
-    gameData->deleteGameMechs(gameData);
+    gameData->~GameMechs();
 }

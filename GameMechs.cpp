@@ -26,6 +26,7 @@ GameMechs::GameMechs() //constructor 1 (default bc nothing in brackets)
     score = 0;
 
     exitFlag = false;
+    loseFlag = false;
 
 }
 
@@ -70,6 +71,7 @@ GameMechs::GameMechs(int boardX, int boardY) //constructor 1 (if you put somethi
     score = 0;
 
     exitFlag = false;
+    loseFlag = false;
 
 
 }
@@ -125,7 +127,7 @@ void GameMechs::clearInput()
 
 void GameMechs::setLoseTrue()
 {
-
+    loseFlag = true;
 }
 
 bool GameMechs::getLoseFlagStatus()
@@ -138,15 +140,15 @@ int GameMechs::getScore()
     return score;
 }
 
-void GameMechs::incrementScore()
+void GameMechs::incrementScore(int val)
 {
-    input = score;
+    score += val;
 }
 
-void GameMechs::generatefood(objPos blockoff)
-{
-    input = blockoff;
-}
+// void GameMechs::generatefood(objPos blockoff)
+// {
+//     input = blockoff;
+// }
 
 void GameMechs::getfoodpos(objPos &returnPos, int index)
 {

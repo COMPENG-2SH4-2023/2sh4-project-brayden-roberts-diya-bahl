@@ -137,14 +137,14 @@ void Player::movePlayer()
     //insert & remove tail here
     ////////
 
-    verifyPlayer(previous);
+//    verifyPlayer(previous);
 
-    printSnake();
+//    printSnake();
 
 
 }
 
-
+/*
 void Player::verifyPlayer(objPos previous)
 {
 
@@ -158,18 +158,18 @@ void Player::verifyPlayer(objPos previous)
         {
 
             int j;
-            if(verify->symbol == ':)')
+            if(verify->symbol == 'B')
             {
                 for(j = 0; j < 3; j++)
                 {
-                    (*mainGameMechsRef).incrementScore();
+                    (*mainGameMechsRef).incrementScore(1);
                 }
 
                 growPlayer(previous);
 
             }
 
-            else if(verify->symbol == ':(')
+            else if(verify->symbol == 'S')
             {
                 for(j = 0; j < 3; j++)
                 {
@@ -195,7 +195,7 @@ void Player::verifyPlayer(objPos previous)
 
             else 
             {
-                (*mainGameMechsRef).incrementScore();
+                (*mainGameMechsRef).incrementScore(1);
                 growPlayer(previous);
             }
 
@@ -243,7 +243,7 @@ int Player::snakeLength()
 
 
 
-
+*/
 
 
 

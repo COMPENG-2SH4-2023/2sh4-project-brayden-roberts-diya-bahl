@@ -33,7 +33,7 @@ class Player
         enum Dir myDir; //myDir is an attribute (variable)
 
         objPos* verify = new objPos;
-        objPosArrayList* list_p = new objPosArrayList;
+    //   objPosArrayList* list_p = new objPosArrayList;
 
         // Need a reference to the Main Game Mechanisms
         GameMechs* mainGameMechsRef;

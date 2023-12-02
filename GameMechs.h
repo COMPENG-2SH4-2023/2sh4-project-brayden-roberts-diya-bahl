@@ -32,14 +32,9 @@ class GameMechs
         GameMechs();
         GameMechs(int boardX, int boardY);
         ~GameMechs();
-        
-        void deleteGameMechs(GameMechs* game);
 
         bool getExitFlagStatus();
         void setExitTrue();
-
-        bool getLoseFlagStatus();
-        void setLoseFlag();
 
         char getInput();
         void setInput(char this_input);
@@ -52,7 +47,7 @@ class GameMechs
         bool getLoseFlagStatus();
 
         int getScore();
-        void incrementScore();
+        void incrementScore(int val);
         void subtractScore();
 
         void generatefood(objPos blockoff); //blockoff = a position, so that when it generates food, it doesn't put it in that blockoff position
