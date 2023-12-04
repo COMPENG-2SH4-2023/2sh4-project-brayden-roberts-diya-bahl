@@ -40,7 +40,7 @@ GameMechs::GameMechs() //constructor 1 (default bc nothing in brackets)
 GameMechs::GameMechs(int boardX, int boardY) //constructor 1 (if you put something in brackets it does this one)
 {
 
-    if (boardSizeX < 10 )
+    if (boardX < 10 )
     {
         boardSizeX = 30;
     }
@@ -49,7 +49,7 @@ GameMechs::GameMechs(int boardX, int boardY) //constructor 1 (if you put somethi
         boardSizeX = boardX;
     }
 
-    if (boardSizeY < 5 )
+    if (boardY < 5 )
     {
         boardSizeY = 15;
     }
