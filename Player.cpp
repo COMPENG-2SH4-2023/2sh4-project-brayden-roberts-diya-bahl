@@ -1,6 +1,6 @@
 #include "Player.h"
 
-
+// Constructor for the Player class
 Player::Player(GameMechs* thisGMRef)
 {
     mainGameMechsRef = thisGMRef;
@@ -13,26 +13,16 @@ Player::Player(GameMechs* thisGMRef)
     playerPos.symbol = '*';
 
     playerPosList->insertHead(playerPos);
-
-    verify->x = 0;
-    verify->y = 0;
-    verify->symbol = 0;
-
-    //insert player head into list_p here
-    /////////////
+   
 
     myDir = STOP;
 
-    // more actions to be included
 }
 
 
 Player::~Player()
 {
     // delete any heap members here
-    delete verify;
-    verify = nullptr;
-
 }
 
 void Player::getPlayerPos(objPosArrayList &returnPosArrayList)
@@ -52,6 +42,8 @@ void Player::updatePlayerDir()
     // PPA3 input processing logic
     char move = (*mainGameMechsRef).getInput();
     mainGameMechsRef->clearInput();
+
+    //setting keyboard inputs to directions 
 
     switch (move)
     {
@@ -102,10 +94,10 @@ void Player::movePlayer()
     playerPosList->getHeadElement(previous);
     objPos next;
     next = previous;
-    //get tail element here
-    /////////
     
     // PPA3 Finite State Machine logic
+
+    //setting wrap around conditions
 
     switch(myDir)
     {
@@ -148,31 +140,43 @@ void Player::movePlayer()
             break;
     }
 
+    // Check if the snake has collided with itself at the next position
+
     if(checkSelfCollision(next.x, next.y))
     {
-        mainGameMechsRef->setLoseTrue();
-        mainGameMechsRef->setExitTrue();
+        // If self-collision is detected:
+
+        mainGameMechsRef->setLoseTrue(); // Set the game state to indicate that the player has lost
+        mainGameMechsRef->setExitTrue(); // Set the game state to indicate that the game should exit
     }
+
+    // Check if the snake is consuming food at the next position
 
     if(checkFoodComsumption(next.x, next.y))
     {
-        playerPosList->insertHead(next);
-        mainGameMechsRef->generateFood(playerPosList);
+        // If food consumption is detected:
+
+        playerPosList->insertHead(next); // Add the next position to the front of the snake's position list
+        mainGameMechsRef->generateFood(playerPosList); // Generate a new food position and update the game board
         mainGameMechsRef->incrementScore(1);
     }
     else
     {
-        playerPosList->insertHead(next);
-        playerPosList->removeTail();
+        // If no food consumption is detected:
+
+        playerPosList->insertHead(next); // Add the next position to the front of the snake's position list
+        playerPosList->removeTail(); // Remove the tail position to maintain the snake's length
     }
 
 }
+
+// Function to check if the snake consumes food at the specified position
 
 bool Player::checkFoodComsumption(int nextX, int nextY)
 {
     objPos food;
     mainGameMechsRef->getFoodPos(food, 0);
-    if(food.x == nextX && food.y == nextY)
+    if(food.x == nextX && food.y == nextY) // Check if the next position matches the position of the food
     {
         return true;
     }
@@ -182,6 +186,8 @@ bool Player::checkFoodComsumption(int nextX, int nextY)
     }
 }
 
+// Function to check for self-collision of the snake
+
 bool Player::checkSelfCollision(int nextX, int nextY)
 {
     int i;
@@ -189,7 +195,7 @@ bool Player::checkSelfCollision(int nextX, int nextY)
     for(i=1; i<playerPosList->getSize();i++)
     {
         playerPosList->getElement(playerSegment, i);
-        if(playerSegment.x == nextX && playerSegment.y == nextY)
+        if(playerSegment.x == nextX && playerSegment.y == nextY) // Check if the next position matches the position of any segment of the snake
         {
             return true;
         }
@@ -197,82 +203,7 @@ bool Player::checkSelfCollision(int nextX, int nextY)
     return false;
 }
 
-/*
-void Player::verifyPlayer(objPos previous)
-{
-
-    int i;
-
-    for(i = 0; i < 5; i++)
-    {
-        (*mainGameMechsRef).getfoodpos(*verify, i);
-
-        if(playerPos.isPosEqual(verify))
-        {
-
-            int j;
-            if(verify->symbol == 'B')
-            {
-                for(j = 0; j < 3; j++)
-                {
-                    (*mainGameMechsRef).incrementScore(1);
-                }
-
-                growPlayer(previous);
-
-            }
-
-            else if(verify->symbol == 'S')
-            {
-                for(j = 0; j < 3; j++)
-                {
-                    (*mainGameMechsRef).subtractScore();
-                }
-
-                if((*mainGameMechsRef).getScore() < 0)
-                {
-                    (*mainGameMechsRef).setLoseTrue();
-                }
-
-                growPlayer(previous);
-            }
-
-            else if(verify->symbol == '-')
-            {
-                //remove tail here 
-                ////////
-
-                ///use get size via list_p here
-                /////////
-            }
-
-            else 
-            {
-                (*mainGameMechsRef).incrementScore(1);
-                growPlayer(previous);
-            }
-
-
-            //Regenerating Food
-
-            (*mainGameMechsRef).generatefood(playerPos);
-            break;
-
-        }
-    }
-
-
-    // check if snake ate itself here
-    /////////////////////////
-
-}
-
-void Player::growPlayer(objPos lastpos)
-{
-    /// insert tail into list_p here 
-    /////////
-}
-*/
+// Function to draw the snake on the game board
 void Player::drawSnake()
 {
     int i;
@@ -280,10 +211,11 @@ void Player::drawSnake()
     for(i = 0; i < playerPosList->getSize(); i++)
     {
         playerPosList->getElement(temp, i);
-        mainGameMechsRef->gameboard[temp.y][temp.x] = temp.symbol;
+        mainGameMechsRef->gameboard[temp.y][temp.x] = temp.symbol; // Set the corresponding symbol on the game board to represent the snake
     }
 }
 
+// Function to remove the snake from the game board
 void Player::removeSnake()
 {
     objPos temp;
@@ -291,17 +223,6 @@ void Player::removeSnake()
     for(i = 0; i < playerPosList->getSize(); i++)
     {
         playerPosList->getElement(temp, i);
-        mainGameMechsRef->gameboard[temp.y][temp.x] = ' ';
+        mainGameMechsRef->gameboard[temp.y][temp.x] = ' '; // Set the corresponding symbol on the game board to an empty space, removing the snake
     }
 }
-/*
-int Player::getPlayerDir()
-{
-    return (int)myDir;
-}
-
-int Player::snakeLength()
-{
-    //return size via getSize
-}
-*/
