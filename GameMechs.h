@@ -50,8 +50,7 @@ class GameMechs
 
         int getScore();
         void incrementScore(int val);
-        void subtractScore();
-
+        
         void generateFood(objPosArrayList* blockoff); //blockoff = a position, so that when it generates food, it doesn't put it in that blockoff position
         //blockoff = placeholder for the position where the player currently is
         void getFoodPos(objPos &returnPos, int index); //finding where an element from the index is on the gameboard & storing the address of that in returnPos

@@ -67,7 +67,7 @@ void Initialize(void)
     snake->getPlayerPos(temp);
     gameData->generateFood(&temp);
 
-    while(!MacUILib_hasChar())
+    while(!MacUILib_hasChar()) // Display an introductory message and wait for user input
     {
         MacUILib_clearScreen();
         MacUILib_Delay(500000000);
@@ -97,7 +97,7 @@ void RunLogic(void)
 }
 
 void DrawScreen(void)
-{
+{   // Get the position of the food and update it on the game board
     MacUILib_clearScreen();
     snake->drawSnake();
     int x;
@@ -120,7 +120,7 @@ void DrawScreen(void)
    
     snake->removeSnake();
     gameData->gameboard[temp.y][temp.x] = ' ';
-   
+    // If the game has been lost, display a message
     if(gameData->getLoseFlagStatus())
     {
         MacUILib_clearScreen();
