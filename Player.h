@@ -28,6 +28,7 @@ class Player
         void drawSnake();
         void removeSnake();
         bool checkFoodComsumption(int nextX, int nextY);
+        bool checkSelfCollision(int nextX, int nextY);
         int snakeLength(); 
 
     private:

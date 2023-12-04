@@ -147,8 +147,13 @@ void Player::movePlayer()
         default:
             break;
     }
-    objPos food;
-    mainGameMechsRef->getFoodPos(food, 0);
+
+    if(checkSelfCollision(next.x, next.y))
+    {
+        mainGameMechsRef->setLoseTrue();
+        mainGameMechsRef->setExitTrue();
+    }
+
     if(checkFoodComsumption(next.x, next.y))
     {
         playerPosList->insertHead(next);
@@ -160,6 +165,7 @@ void Player::movePlayer()
         playerPosList->insertHead(next);
         playerPosList->removeTail();
     }
+
 }
 
 bool Player::checkFoodComsumption(int nextX, int nextY)
@@ -174,6 +180,21 @@ bool Player::checkFoodComsumption(int nextX, int nextY)
     {
        return false;
     }
+}
+
+bool Player::checkSelfCollision(int nextX, int nextY)
+{
+    int i;
+    objPos playerSegment;
+    for(i=1; i<playerPosList->getSize();i++)
+    {
+        playerPosList->getElement(playerSegment, i);
+        if(playerSegment.x == nextX && playerSegment.y == nextY)
+        {
+            return true;
+        }
+    }
+    return false;
 }
 
 /*
