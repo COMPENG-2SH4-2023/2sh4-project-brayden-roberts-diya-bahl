@@ -27,6 +27,7 @@ class Player
         void verifyPlayer(objPos previous); 
         void drawSnake();
         void removeSnake();
+        bool checkFoodComsumption(int nextX, int nextY);
         int snakeLength(); 
 
     private:

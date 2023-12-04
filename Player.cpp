@@ -38,7 +38,13 @@ Player::~Player()
 void Player::getPlayerPos(objPosArrayList &returnPosArrayList)
 {
     // return the reference to the playerPos arrray list
-    returnPosArrayList = *playerPosList;
+    int i;
+    objPos temp;
+    for(i = 0; i < playerPosList->getSize(); i++)
+    {
+        playerPosList->getElement(temp, i);
+        returnPosArrayList.insertTail(temp);
+    }
 }
 
 void Player::updatePlayerDir()
@@ -141,16 +147,33 @@ void Player::movePlayer()
         default:
             break;
     }
+    objPos food;
+    mainGameMechsRef->getFoodPos(food, 0);
+    if(checkFoodComsumption(next.x, next.y))
+    {
+        playerPosList->insertHead(next);
+        mainGameMechsRef->generateFood(playerPosList);
+        mainGameMechsRef->incrementScore(1);
+    }
+    else
+    {
+        playerPosList->insertHead(next);
+        playerPosList->removeTail();
+    }
+}
 
-
-playerPosList->insertHead(next);
-playerPosList->removeTail();
-
-//    verifyPlayer(previous);
-
-//    printSnake();
-
-
+bool Player::checkFoodComsumption(int nextX, int nextY)
+{
+    objPos food;
+    mainGameMechsRef->getFoodPos(food, 0);
+    if(food.x == nextX && food.y == nextY)
+    {
+        return true;
+    }
+    else
+    {
+       return false;
+    }
 }
 
 /*

@@ -160,16 +160,35 @@ void GameMechs::incrementScore(int val)
     score += val;
 }
 
-void GameMechs::generateFood(objPos blockoff)
+void GameMechs::generateFood(objPosArrayList* blockoff)
 {
-    int posY = (rand() % boardSizeY)+1;
-    int posX = (rand() % boardSizeX)+1;
-        if(posX != blockoff.x && posY != blockoff.y)
+    int i;
+    objPos temp;
+    bool snakeFlag;
+    bool placeFlag = false;
+    int posX;
+    int posY;
+    while (!placeFlag)
+    {
+        posY = (rand() % (boardSizeY-2))+1;
+        posX = (rand() % (boardSizeX-2))+1;
+        for(i = 0; i < blockoff->getSize();i++)
+        {
+            blockoff->getElement(temp, i);
+            if(posX == temp.x && posY == temp.y)
+            {
+                snakeFlag = true;
+            }
+        }
+        if(!snakeFlag)
         {
             foodPos.x = posX;
             foodPos.y = posY;
             foodPos.symbol = 'A';
+            placeFlag = true;
         }
+    }
+    
 }
 
 void GameMechs::getFoodPos(objPos &returnPos, int index)
