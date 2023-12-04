@@ -22,14 +22,12 @@ class Player
         void getPlayerPos(objPosArrayList &returnPosArrayList); // Upgrade this in iteration 3.
         int getPlayerDir();
         void updatePlayerDir();
-        void movePlayer(); //these are all methods; functions for the class
-        void growPlayer(objPos lastpos);  
-        void verifyPlayer(objPos previous); 
+        void movePlayer(); //these are all methods; functions for the class   
         void drawSnake();
         void removeSnake();
         bool checkFoodComsumption(int nextX, int nextY);
         bool checkSelfCollision(int nextX, int nextY);
-        int snakeLength(); 
+         
 
     private:
         objPosArrayList* playerPosList;   // Upgrade this in iteration 3.       
