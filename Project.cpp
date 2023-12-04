@@ -113,6 +113,7 @@ void DrawScreen(void)
         MacUILib_printf("\n"); 
     }
     MacUILib_printf("\n%c", dir);
+    MacUILib_printf("Use the 'WASD' controls to move the * (player).\nW = up, A = left, S = down, D = right.\nRemember that you lose the game if you run into yourself!\n");
     snake->removeSnake();
     gameData->gameboard[temp.y][temp.x] = ' ';
     if(gameData->getLoseFlagStatus() == false)
