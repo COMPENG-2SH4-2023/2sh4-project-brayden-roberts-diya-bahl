@@ -4,6 +4,7 @@
 #include "GameMechs.h"
 #include "Player.h"
 #include <time.h>
+#include "objPosArrayList.h"
 
 using namespace std;
 
@@ -48,9 +49,11 @@ void Initialize(void)
     MacUILib_clearScreen();
     gameData = new GameMechs();
     snake = new Player(gameData);
-    objPos temp;
-    snake->getPlayerPos(temp);
-    gameData->generateFood(temp);
+    //objPosArrayList temp;
+    //objPos temp2;
+    //snake->getPlayerPos(temp);
+    //temp.getHeadElement(temp2);
+    //gameData->generateFood(temp2);
 
 }
 
@@ -72,14 +75,9 @@ void RunLogic(void)
 void DrawScreen(void)
 {
     MacUILib_clearScreen();
+    snake->drawSnake();
     int x;
     int y;
-    objPos temp;
-    objPos temp2;
-    snake->getPlayerPos(temp);
-    gameData->getFoodPos(temp2, 1);
-    gameData->gameboard[temp.y][temp.x] = temp.symbol;
-    gameData->gameboard[temp2.y][temp2.x] = temp2.symbol;
 
     for(y=0;y<gameData->getBoardSizeY();y++)       //Start from a y co-ordinate
     {
@@ -90,6 +88,7 @@ void DrawScreen(void)
         MacUILib_printf("\n"); 
     }
     MacUILib_printf("\n%c", dir);
+    snake->removeSnake();
     if(gameData->getLoseFlagStatus() == false)
     {
         MacUILib_printf("You did not lose");
@@ -99,8 +98,14 @@ void DrawScreen(void)
         MacUILib_printf("You lose");
     }
 
-    gameData->gameboard[temp.y][temp.x] = ' ';
-    gameData->gameboard[temp2.y][temp2.x] = ' ';
+    // for(x=0; x < playerTemp.getSize(); x++)
+    // {
+    //     playerTemp.getElement(elementTemp, x);
+    //     gameData->gameboard[elementTemp.y][elementTemp.x] = 0;
+    // }
+
+    // gameData->gameboard[temp.y][temp.x] = ' ';
+    // gameData->gameboard[temp2.y][temp2.x] = ' ';
     
 }
 

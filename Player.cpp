@@ -4,10 +4,15 @@
 Player::Player(GameMechs* thisGMRef)
 {
     mainGameMechsRef = thisGMRef;
+    playerPosList = new objPosArrayList();
+
+    objPos playerPos;
 
     playerPos.x = (*mainGameMechsRef).getBoardSizeX()/2;
     playerPos.y = (*mainGameMechsRef).getBoardSizeY()/2;
     playerPos.symbol = '*';
+
+    playerPosList->insertHead(playerPos);
 
     verify->x = 0;
     verify->y = 0;
@@ -30,10 +35,10 @@ Player::~Player()
 
 }
 
-void Player::getPlayerPos(objPos &returnPos)
+void Player::getPlayerPos(objPosArrayList &returnPosArrayList)
 {
     // return the reference to the playerPos arrray list
-    playerPos.getObjPos(returnPos);
+    returnPosArrayList = *playerPosList;
 }
 
 void Player::updatePlayerDir()
@@ -87,8 +92,10 @@ void Player::updatePlayerDir()
 
 void Player::movePlayer()
 {
-    
     objPos previous;
+    playerPosList->getHeadElement(previous);
+    objPos next;
+    next = previous;
     //get tail element here
     /////////
     
@@ -97,50 +104,47 @@ void Player::movePlayer()
     switch(myDir)
     {
         case UP:
-            playerPos.y--;
-
-            if(playerPos.y == 0)
+            next.y = previous.y - 1;
+            if(next.y == 0)
             {
-                playerPos.y = (*mainGameMechsRef).getBoardSizeY() -2;
+                next.y = mainGameMechsRef->getBoardSizeY() - 2;
             }
             
             break;
 
         case RIGHT:
-            playerPos.x++;
-
-            if(playerPos.x >= (*mainGameMechsRef).getBoardSizeX() - 1)
+            next.x = previous.x + 1;
+            if(next.x == mainGameMechsRef->getBoardSizeX() - 1)
             {
-                playerPos.x = 1;
+                next.x = 1;
             }
 
             break;
 
         case DOWN:
-            playerPos.y++;
-
-            if(playerPos.y >= (*mainGameMechsRef).getBoardSizeY() - 1)
+            next.y = previous.y + 1;
+            if(next.y == mainGameMechsRef->getBoardSizeY() - 1)
             {
-                playerPos.y = 1;
+                next.y = 1;
             }
-            
+
             break;
 
         case LEFT:
-            playerPos.x--;
-
-            if(playerPos.x == 0)
+            next.x = previous.x - 1;
+            if(next.x == 0)
             {
-                playerPos.x = (*mainGameMechsRef).getBoardSizeX() - 2;
+                next.x = mainGameMechsRef->getBoardSizeX() - 2;
             }
 
             break;
-    
+        default:
+            break;
     }
 
-    
-    //insert & remove tail here
-    ////////
+
+playerPosList->insertHead(next);
+playerPosList->removeTail();
 
 //    verifyPlayer(previous);
 
@@ -224,18 +228,29 @@ void Player::growPlayer(objPos lastpos)
     /// insert tail into list_p here 
     /////////
 }
-
-void Player::printSnake()
+*/
+void Player::drawSnake()
 {
     int i;
-
-    for( i = 0; i < (*mainGameMechsRef).getBoardSizeY(); i++)
+    objPos temp;
+    for(i = 0; i < playerPosList->getSize(); i++)
     {
-        list_p->getElement((*verify), i);
-        (*mainGameMechsRef).gameboard[verify->y][verify->x]; ////
+        playerPosList->getElement(temp, i);
+        mainGameMechsRef->gameboard[temp.y][temp.x] = temp.symbol;
     }
 }
 
+void Player::removeSnake()
+{
+    objPos temp;
+    int i;
+    for(i = 0; i < playerPosList->getSize(); i++)
+    {
+        playerPosList->getElement(temp, i);
+        mainGameMechsRef->gameboard[temp.y][temp.x] = ' ';
+    }
+}
+/*
 int Player::getPlayerDir()
 {
     return (int)myDir;
@@ -245,11 +260,4 @@ int Player::snakeLength()
 {
     //return size via getSize
 }
-
-
-
 */
-
-
-
-

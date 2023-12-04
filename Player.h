@@ -19,17 +19,18 @@ class Player
         Player(GameMechs* thisGMRef);
         ~Player();
 
-        void getPlayerPos(objPos &returnPos); // Upgrade this in iteration 3.
+        void getPlayerPos(objPosArrayList &returnPosArrayList); // Upgrade this in iteration 3.
         int getPlayerDir();
         void updatePlayerDir();
         void movePlayer(); //these are all methods; functions for the class
         void growPlayer(objPos lastpos);  
         void verifyPlayer(objPos previous); 
-        void printSnake(); 
+        void drawSnake();
+        void removeSnake();
         int snakeLength(); 
 
     private:
-        objPos playerPos;   // Upgrade this in iteration 3.       
+        objPosArrayList* playerPosList;   // Upgrade this in iteration 3.       
         enum Dir myDir; //myDir is an attribute (variable)
 
         objPos* verify = new objPos;
