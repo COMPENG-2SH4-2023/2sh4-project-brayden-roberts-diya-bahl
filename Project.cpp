@@ -1,4 +1,6 @@
 #include <iostream>
+#include <string>
+#include <cstring>
 #include "MacUILib.h"
 #include "objPos.h"
 #include "GameMechs.h"
@@ -13,7 +15,7 @@ using namespace std;
 GameMechs* gameData;
 Player* snake;
 char dir = 0;
-
+bool exitFlag;
 
 void Initialize(void);
 void GetInput(void);
@@ -44,15 +46,37 @@ int main(void)
 
 void Initialize(void)
 {
-    srand(time(NULL));
+
+    int x,y;
+
     MacUILib_init();
+
+    srand(time(NULL));
     MacUILib_clearScreen();
+    MacUILib_Delay(500000);
     gameData = new GameMechs();
     snake = new Player(gameData);
     objPosArrayList temp;
     snake->getPlayerPos(temp);
     gameData->generateFood(&temp);
+
+    while(!MacUILib_hasChar())
+    {
+        MacUILib_clearScreen();
+        MacUILib_Delay(500000000);
+
+        MacUILib_printf("Hey!\nWelcome to a cool demo of a snake game :) \n(Created by Brayden Roberts & Diya Bahl)\nPress any key to continue");
+        MacUILib_Delay(500000); 
+
+    }
     
+    MacUILib_clearScreen();
+    
+    MacUILib_printf("Enter width of Game Board (if you press '0' that will be the default board size):\n");
+    cin >> x;
+
+    MacUILib_printf("Enter height of Game Board (if you press '0' that will be the default board size):\n");
+    cin >> y;
 }
 
 void GetInput(void)
